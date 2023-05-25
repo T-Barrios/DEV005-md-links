@@ -54,8 +54,8 @@ const getLinks = (file, data) => {
       objsArray.push({ href, text: item.textContent, file });
     }
   });
-  console.log('este es file****************', file, 'este es dataaaaaaaaaaaaaaaaaaaaaa', data);
-  console.log('aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', objsArray);
+  // console.log('este es file****************', file, 'este es dataaaaaaaaaaaaaaaaaaaaaa', data);
+  // console.log('aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', objsArray);
   return objsArray;
 };
 
@@ -68,7 +68,6 @@ const readMdFile = (route) => new Promise((resolve, reject) => {
 });
 
 // console.log('chapalapachala', readMdFile(testfile));
-
 
 /*
 // para leer todos los

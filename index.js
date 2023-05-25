@@ -16,7 +16,7 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
   // console.log(allMd);
   Promise.all(allMd.map((element) => readMdFile(element)))
     .then((res) => {
-      console.log('este es el res-->', res);
+      // console.log('este es el res-->', res);
       const finalArray = [].concat(...res);
       resolve(finalArray);
     })
@@ -25,7 +25,7 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
     });
 });
 
-mdLinks(file)
+mdLinks(inputPath)
   .then((res) => {
     console.log(res);
   })

@@ -16,9 +16,13 @@ describe('convertToAbsolute', () => {
   it('is a function', () => {
     expect(typeof convertToAbsolute).toBe('function');
   });
-  it('should return true', () => {
+  it('should convert relative path to absolute path', () => {
     const relativePath = 'tesuto/doc1.md';
     expect(convertToAbsolute(relativePath)).toBe('C:\\Users\\VIC\\Pictures\\GIT HUB\\DEV005-md-links\\tesuto\\doc1.md');
+  });
+  it('should return the same absolute path that was used', () => {
+    const absolutePath = 'C:/Users/VIC/Desktop/tesuto/doc1.md';
+    expect(convertToAbsolute(absolutePath)).toBe('C:/Users/VIC/Desktop/tesuto/doc1.md');
   });
 });
 
@@ -65,13 +69,22 @@ describe('getLinks', () => {
   });
 });
 
-/*
 describe('readMdFile', () => {
   it('is a function', () => {
     expect(typeof readMdFile).toBe('function');
   });
-  it('should return promise pending', () => {
-    expect(readMdFile()).toBe('Promise { <pending> }');
+  const fileRouteReadMd = 'C:/Users/VIC/Desktop/tesuto/doc1.md';
+  const array = [{ file: 'C:/Users/VIC/Desktop/tesuto/doc1.md', href: 'https://www.tiktok.com/@capivaramemess/video/7200751737957879045', text: 'capibaras lindos de tiktok' }, { file: 'C:/Users/VIC/Desktop/tesuto/doc1.md', href: 'https://es.wikipedia.org/wiki/Markdown', text: 'Markdown' }];
+  it('returns ...', () => readMdFile(fileRouteReadMd).then((data) => {
+    expect(data).toEqual(array);
+  }));
+});
+
+// testear promesas con jest
+/*
+test('the data is peanut butter', () => {
+  return fetchData().then(data => {
+    expect(data).toBe('peanut butter');
   });
 });
 */
