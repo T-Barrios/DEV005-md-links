@@ -1,27 +1,36 @@
-module.exports = () => {
-  // ...
-};
+const {
+  convertToAbsolute, getAllMdFiles, readMdFile, readAllMdFiles, getLinks,
+} = require('./functions');
 
+const inputPath = process.argv[2];
 
-/*
+const dir = 'C:/Users/VIC/Desktop/tesuto';
+const file = 'C:/Users/VIC/Desktop/tesuto/doc1.md';
+const txtFile = 'C:/Users/VIC/Desktop/tesuto/txtfile.txt';
+const fileRel = 'rel-doc1.md';
 
-const recursive = (route) => {
-    let arrayMd = []
-  if  (fs.statSync(route).isFile()){
-    arrayMd.push(route)
-  } else {
-    const elements = fs.readdirSync(route)
-    elements.forEach(element => {
-        let newRoute = path.join(route, element);
-        if (fs.statSync(newRoute).isDirectory()){
-            arrayMd = arrayMd.concat(recursive(newRoute));
-        }else{
-            arrayMd.push(newRoute)
-        }
-    })    
-  }
-  return arrayMd.filter(file => path.extname(file) === '.md');
-}
- console.log('Archivos con extensión .md:', recursive(routeDirectorio));
+const mdLinks = (path, options) => new Promise((resolve, reject) => {
+  const pathAbs = convertToAbsolute(path);
+  // console.log(pathAbs);
+  const allMd = getAllMdFiles(pathAbs);
+  // console.log(allMd);
+  Promise.all(allMd.map((element) => readMdFile(element)))
+    .then((res) => {
+      console.log('este es el res-->', res);
+      const finalArray = [].concat(...res);
+      resolve(finalArray);
+    })
+    .catch((err) => {
+      reject(console.error(err));
+    });
+});
 
-*/
+mdLinks(file)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+module.exports = { mdLinks };
