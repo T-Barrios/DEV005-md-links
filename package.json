@@ -3,5 +3,15 @@
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "jest": "^29.5.0"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "colors": "^1.4.0"
   }
 }
