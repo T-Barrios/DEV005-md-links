@@ -1,6 +1,12 @@
+// const fetch = require('node-fetch');
+
+// jest.mock('fetch');
+
 const {
-  convertToAbsolute, getAllMdFiles, readMdFile, readAllMdFiles, getLinks,
+  convertToAbsolute, getAllMdFiles, readMdFile, readAllMdFiles, getLinks, checkLinks, checkLinks2,
 } = require('../functions');
+
+// global.fetch = require('fetch');
 
 /*
 const mdLinks = require('..');
@@ -80,6 +86,93 @@ describe('readMdFile', () => {
   }));
 });
 
+describe('checkLinks', () => {
+  it('is a function', () => {
+    expect(typeof checkLinks).toBe('function');
+  });
+
+  /*   global.fetch = jest.fn(() => Promise.resolve({
+    Response: () => Promise.resolve(mockData),
+  })); */
+  const mockData = [
+    {
+      href: 'https://www.tiktok.com/@capivaramemess/video/7200751737957879045',
+      text: 'capibaras lindos de tiktok',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+      status: 200,
+      statusText: 'OK',
+    },
+    {
+      href: 'https://es.wikipedia.org/wiki/Markdown',
+      text: 'Markdown',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+      status: 200,
+      statusText: 'OK',
+    },
+  ];
+  const arrayArg = [
+    {
+      href: 'https://www.tiktok.com/@capivaramemess/video/7200751737957879045',
+      text: 'capibaras lindos de tiktok',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+    },
+    {
+      href: 'https://es.wikipedia.org/wiki/Markdown',
+      text: 'Markdown',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+    },
+  ];
+  global.fetch = jest.fn(() => Promise.resolve({ status: 200, statusText: 'OK' }));
+
+  it('returns an array with the validation info (status, statusText)', () => checkLinks(arrayArg).then((data) => {
+    expect(data).toEqual(mockData);
+  }));
+});
+
+describe('checkLinks2', () => {
+  it('is a function', () => {
+    expect(typeof checkLinks).toBe('function');
+  });
+
+  const arrayArg = [
+    {
+      href: 'https://www.tiktok.com/@capivaramemess/video/7200751737957879045',
+      text: 'capibaras lindos de tiktok',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+    },
+    {
+      href: 'https://es.wikipedia.org/wiki/Markdown',
+      text: 'Markdown',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+    },
+  ];
+
+  const mockData = [
+    {
+      href: 'https://www.tiktok.com/@capivaramemess/video/7200751737957879045',
+      text: 'capibaras lindos de tiktok',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+      status: 200,
+      statusText: 'OK',
+    },
+    {
+      href: 'https://es.wikipedia.org/wiki/Markdown',
+      text: 'Markdown',
+      file: 'C:/Users/VIC/Desktop/tesuto/doc1.md',
+      status: 200,
+      statusText: 'OK',
+    },
+  ];
+
+  global.fetch = jest.fn(() => Promise.resolve({ status: 200, statusText: 'OK' }));
+
+  it('returns a consumed array with the validation info (status, statusText)', () => checkLinks2(arrayArg).then((data) => {
+    expect(data).toEqual(mockData);
+  }));
+});
+
+// fetch.mockResolvedValueOnce({ staus: mockData.status });
+
 // testear promesas con jest
 /*
 test('the data is peanut butter', () => {
@@ -87,6 +180,11 @@ test('the data is peanut butter', () => {
     expect(data).toBe('peanut butter');
   });
 });
+// segunda opcion que arregla el eslint sin el return pero igual sirve
+  it('returns ...', () => checkLinks(arrayArg).then((data) => {
+    expect(data).toEqual(arrayOutput);
+  }));
+
 */
 
 /*

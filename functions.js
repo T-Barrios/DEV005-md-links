@@ -3,14 +3,16 @@ const path = require('path');
 const MarkdownIt = require('markdown-it');
 const { JSDOM } = require('jsdom');
 const colors = require('colors');
-const { error } = require('console');
+const { error, Console } = require('console');
 
 const dir = 'C:/Users/VIC/Desktop/tesuto';
 const testfile = 'C:/Users/VIC/Desktop/tesuto/doc1.md';
 const testtxtFile = 'C:/Users/VIC/Desktop';
 const testfileRel = 'tesuto/doc1.md';
 
-// const dir = process.argv[2];
+// const inputDir = process.argv[2];
+const inputOp1 = process.argv[3];
+const inputOp2 = process.argv[4];
 
 // resolver ruta relative a absolute
 const convertToAbsolute = (route) => {
@@ -67,6 +69,66 @@ const readMdFile = (route) => new Promise((resolve, reject) => {
   });
 });
 
+const checkLinks = (array) => Promise.all(array.map((obj) => fetch(obj.href)
+  .then((response) => {
+    const x = {
+      href: obj.href,
+      text: obj.text,
+      file: obj.file,
+      status: response.status,
+      statusText: response.statusText,
+    };
+    return x;
+  })
+  .catch((err) => {
+    console.log(`Hubo un problema con la petición Fetch: ${err.message}`);
+  })));
+
+const checkLinks2 = (array) => new Promise((resolve, reject) => {
+  checkLinks(array)
+    .then((res) => resolve(res))
+    .catch((err) => reject(err));
+});
+
+const getStats = (array) => {
+  const totalLinks = array.length;
+  // console.log('total: ', totalLinks);
+  const hrefArray = array.map((element) => element.href);
+  const uniqueLinks = new Set(hrefArray).size;
+  // console.log('este es el size', un);
+  return (`Total: ${totalLinks}
+Unique: ${uniqueLinks}
+`).blue;
+  // const brokenLink = array2.map((element) => element.statusText);
+};
+
+const getBrokenLinks = (array) => {
+  // const statusTextArray = array.map((element) => element.statusText);
+  const brokenLinks = array.filter((e) => e.statusText !== 'OK').length;
+  return (`Broken: ${brokenLinks}`).red;
+};
+
+/*
+const checkLinks = (array) => {
+  Promise.all(array.map((obj) => fetch(obj.href)
+    .then((response) => console.log(obj.href, obj.text, obj.file, response.status, response.statusText))));
+};
+*/
+
+/*
+const validateLinks = (array) => {
+  let output = '';
+  if (inputOp1 === '' && inputOp2 === '') {
+    console.log('este es el sin validate');
+    output = array;
+  } else if (inputOp1 === '--validate' || inputOp2 === '--validate') {
+    console.log('este es el con validate');
+    output = checkLinks(array);
+  }
+  return output;
+};
+*/
+
 // console.log('chapalapachala', readMdFile(testfile));
 
 /*
@@ -85,6 +147,12 @@ module.exports = {
   getAllMdFiles,
   readMdFile,
   getLinks,
+  checkLinks,
+  inputOp1,
+  inputOp2,
+  checkLinks2,
+  getStats,
+  getBrokenLinks,
 };
 
 // readAllMdFiles(arrayMd);

@@ -134,3 +134,19 @@ module.exports = {
   absolutePath,
   recursive,
 }
+
+
+const verifyLinks = (links) => Promise.all(links.map((link) => fetch(link.href)
+  .then((response) => {
+    if (response.ok) {
+      const validate = {
+        Ruta: link.file, Link: link.href, Status: response.status, StatusText: response.statusText,
+      };
+      return validate;
+      // console.log('Ruta', link.file, 'Link', link.href, 'OK'.bgGreen, `${response.status}\n`);
+    }
+    return console.log('Ruta'.bgWhite, link.file, 'Link'.bgWhite, link.href, 'Fail'.bgRed, `${response.status}\n`);
+  })
+  .catch((error) => {
+    console.log(`Hubo un problema con la petición Fetch: ${error.message}`);
+  })));
