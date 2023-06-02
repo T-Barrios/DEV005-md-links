@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { getStats, checkLinks2, getBrokenLinks } = require('./functions');
 const { mdLinks } = require('./index');
 
@@ -11,7 +12,12 @@ const link = 'https://www.tiktok.com/@capivaramemess/video/7200751737957879045';
 if (inputVal === undefined && inputStats === undefined) {
   mdLinks(inputPath, { validate: false })
     .then((res) => {
-      console.log(res);
+      res.forEach((element) => {
+        console.log('Href: ', element.href);
+        console.log('Text: ', element.text);
+        console.log('File: ', element.file);
+        console.log('');
+      });
     });
 }
 if (inputVal === '--validate' && inputStats === undefined) {

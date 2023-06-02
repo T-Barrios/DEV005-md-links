@@ -1,6 +1,9 @@
 {
-  "name": "md-links",
+  "name": "mdlinks-reloaded",
   "version": "0.1.0",
+  "description": "It checks the status of links inside md. files",
+  "main": "./cli.js",
+  "author": "@t-barrios",
   "engines": {
     "node": ">=16.x"
   },
@@ -19,5 +22,9 @@
     "eslint-plugin-jest": "^27.2.1",
     "jsdom": "^22.0.0",
     "markdown-it": "^13.0.1"
+  },
+  "bin": {
+    "mdlinks": "./cli.js"
   }
+
 }

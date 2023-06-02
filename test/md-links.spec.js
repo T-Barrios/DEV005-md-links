@@ -1,22 +1,6 @@
-// const fetch = require('node-fetch');
-
-// jest.mock('fetch');
-
 const {
-  convertToAbsolute, getAllMdFiles, readMdFile, readAllMdFiles, getLinks, checkLinks, checkLinks2,
+  convertToAbsolute, getAllMdFiles, readMdFile, readAllMdFiles, getLinks, checkLinks, checkLinks2, getStats, getBrokenLinks,
 } = require('../functions');
-
-// global.fetch = require('fetch');
-
-/*
-const mdLinks = require('..');
-
-describe('mdLinks', () => {
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
-});
-*/
 
 describe('convertToAbsolute', () => {
   it('is a function', () => {
@@ -91,9 +75,6 @@ describe('checkLinks', () => {
     expect(typeof checkLinks).toBe('function');
   });
 
-  /*   global.fetch = jest.fn(() => Promise.resolve({
-    Response: () => Promise.resolve(mockData),
-  })); */
   const mockData = [
     {
       href: 'https://www.tiktok.com/@capivaramemess/video/7200751737957879045',
@@ -170,30 +151,3 @@ describe('checkLinks2', () => {
     expect(data).toEqual(mockData);
   }));
 });
-
-// fetch.mockResolvedValueOnce({ staus: mockData.status });
-
-// testear promesas con jest
-/*
-test('the data is peanut butter', () => {
-  return fetchData().then(data => {
-    expect(data).toBe('peanut butter');
-  });
-});
-// segunda opcion que arregla el eslint sin el return pero igual sirve
-  it('returns ...', () => checkLinks(arrayArg).then((data) => {
-    expect(data).toEqual(arrayOutput);
-  }));
-
-*/
-
-/*
-describe('...', () => {
-  it('is a ...', () => {
-    expect().toBe();
-  });
-  it('should return ...', () => {
-    expect().toBe();
-  });
-});
-*/
